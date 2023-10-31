@@ -55,17 +55,15 @@ const styles = StyleSheet.create({
     ImageContainer: {
         width: '70%',
         height: '70%',
-        borderTopEndRadius: 30, // Add border radius to the top end
-        borderBottomStartRadius: 30, // Add border radius to the bottom start
+        borderTopEndRadius: 30, 
+        borderBottomStartRadius: 30, 
         overflow: 'hidden',
     },
     Image: {
         width: '100%',
         height: '100%',
         justifyContent: 'center',
-        alignItems: 'center',
-        borderTopEndRadius: 20,
-        borderBottomStartRadius: 20,
+        alignItems: 'center'
     },
 });
 

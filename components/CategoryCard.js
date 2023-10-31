@@ -1,14 +1,16 @@
 import React from 'react';
-import { View, Text, Image, StyleSheet } from 'react-native';
+import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native';
 
 const CategoryCard = ({ title, imageUrl }) => {
   return (
-    <View style={styles.card}>
-      <Image source={imageUrl} style={styles.backgroundImage} />
-      <View style={styles.contentContainer}>
-        <Text style={styles.title}>{title}</Text>
+    <TouchableOpacity>
+      <View style={styles.card}>
+        <Image source={imageUrl} style={styles.backgroundImage} />
+        <View style={styles.contentContainer}>
+          <Text style={styles.title}>{title}</Text>
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 

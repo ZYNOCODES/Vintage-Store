@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import { Text, View, StyleSheet, FlatList, ScrollView, TouchableOpacity } from 'react-native';
+import { Text, View, StyleSheet, FlatList, ScrollView, TouchableOpacity, SectionList } from 'react-native';
 import CategoryCard from '../components/CategoryCard';
 import ProductCard from '../components/ProductCard';
 import NewCollectionCard from '../components/NewCollection';
@@ -18,60 +18,67 @@ export default function Home() {
     const handleSwitchCategorys = (val) => {
         setCurrentCategory(val);
     }
+    
     return (
-    <ScrollView>
-        <View style={styles.container}>
-        <View style={styles.TopBar}>
-            <Text style={styles.title}>Vintage</Text>
-            <Text style={styles.subtitle}>touch</Text>
-        </View>
-        <View style={styles.Content}>
-            <FlatList 
-                data= {Category}
-                keyExtractor={(item, index) => index.toString()}
-                horizontal={true}
-                renderItem={({ item }) => 
-                    <CategoryCard title={item.title} imageUrl={item.image} />
-                }
-            />
-            <NewCollectionCard title={'SWEET SHIRTS'} imageUrl={require('../assets/karolina.jpg')}/>
-            <View style={styles.CategoryContent}>
-                <Text style={styles.CategoryTitle}>Category</Text>
-                <FlatList 
-                    data= {Category}
+        <ScrollView>
+            <View style={styles.container}>
+            <View style={styles.TopBar}>
+                <Text style={styles.title}>Vintage</Text>
+                <Text style={styles.subtitle}>touch</Text>
+            </View>
+            <View style={styles.Content}>
+                <FlatList
+                    data={Category}
                     keyExtractor={(item, index) => index.toString()}
                     horizontal={true}
-                    renderItem={({ item }) => 
-                        <TouchableOpacity style={styles.CategoryBarIcon}
-                        onPress={()=>handleSwitchCategorys(item.title)}>
-                            <Text>{item.title}</Text>
-                        </TouchableOpacity>
+                    renderItem={({ item }) =>
+                        <CategoryCard title={item.title} imageUrl={item.image} />
                     }
                 />
-                <View style={styles.ProductContent}>
-                    <FlatList 
-                        data= {Category}
+                <NewCollectionCard title={'SWEET SHIRTS'} imageUrl={require('../assets/karolina.jpg')} />
+                <View style={styles.CategoryContent}>
+                    <Text style={styles.CategoryTitle}>Category</Text>
+                    <FlatList
+                        data={Category}
                         keyExtractor={(item, index) => index.toString()}
-                        numColumns={2}
-                        renderItem={({ item }) => 
-                            <ProductCard title={item.title} imageUrl={item.image} />
+                        horizontal={true}
+                        renderItem={({ item }) =>
+                            <TouchableOpacity style={styles.CategoryBarIcon}
+                                onPress={() => handleSwitchCategorys(item.title)}>
+                                <Text>{item.title}</Text>
+                            </TouchableOpacity>
                         }
                     />
+                    <View style={styles.ProductContent}>
+                        <View>
+                            {Category.slice(0, Math.ceil(Category.length / 2)).map((item, index) => (
+                                <ProductCard title={item.title} imageUrl={item.image} />
+                            ))}
+                        </View>
+                        <View>
+                            {Category.slice(Math.ceil(Category.length / 2)).map((item, index) => (
+                                <ProductCard title={item.title} imageUrl={item.image} />
+                            ))}
+                        </View>
+                    </View>
                 </View>
-            </View>  
+            </View>
         </View>
-        </View>
-    </ScrollView>
-  );
+        </ScrollView>
+    );
 }
 
 const styles = StyleSheet.create({
+    flatListContent: {
+        flexGrow: 1,
+    },
     ProductContent:{
         width: '100%',
         height: 'auto',
         flex: 1,
         alignItems: 'center',
         justifyContent: 'center',
+        flexDirection: 'row',
     },
     CategoryBarIcon:{
         flex:1,
